@@ -13,26 +13,26 @@ import java.util.Optional;
 public class ProdutoController {
 
     @Autowired
-    private ProdutoService livroService;
+    private ProdutoService produtoService;
 
     @PostMapping
-    public ProdutoModel criarLivro(@RequestBody ProdutoModel livroModel){
-        return livroService.criarProduto(livroModel);
+    public ProdutoModel criarproduto(@RequestBody ProdutoModel produtoModel){
+        return produtoService.criarProduto(produtoModel);
     }
 
     @GetMapping
-    public List<ProdutoModel> listarLivros(){
-        return livroService.findAll();
+    public List<ProdutoModel> listarProdutos(){
+        return produtoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<ProdutoModel> buscarLivro(@PathVariable  Long id){
-        return livroService.buscarProduto(id);
+    public Optional<ProdutoModel> buscarProduto(@PathVariable  Long id){
+        return produtoService.buscarProduto(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deletarLivro(@PathVariable Long id){
-        livroService.deletarProduto(id);
+    public void deletarProduto(@PathVariable Long id){
+        produtoService.deletarProduto(id);
     }
 
 }
