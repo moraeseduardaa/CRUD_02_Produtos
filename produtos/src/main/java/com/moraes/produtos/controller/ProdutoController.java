@@ -3,8 +3,10 @@ package com.moraes.produtos.controller;
 import com.moraes.produtos.model.ProdutoModel;
 import com.moraes.produtos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,13 +18,18 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping
-    public ProdutoModel criarproduto(@RequestBody ProdutoModel produtoModel){
-        return produtoService.criarProduto(produtoModel);
+    public ResponseEntity<ProdutoModel> criarProduto(@RequestBody ProdutoModel produtoModel){
+
+        ProdutoModel request = produtoService.criarProduto(produtoModel);
+
+        URI uri = URI.create("/produtos/" + request.getId());
+        return ResponseEntity.created(uri).body(request);
     }
 
     @GetMapping
-    public List<ProdutoModel> listarProdutos(){
-        return produtoService.findAll();
+    public ResponseEntity<List<ProdutoModel>> findAll(){
+        List<ProdutoModel> request = produtoService.findAll();
+        return ResponseEntity.ok().body(request);
     }
 
     @GetMapping("/{id}")
@@ -31,8 +38,9 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletarProduto(@PathVariable Long id){
+    public ResponseEntity<Void> deletarProduto(@PathVariable Long id){
         produtoService.deletarProduto(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

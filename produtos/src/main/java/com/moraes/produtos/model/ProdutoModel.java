@@ -21,6 +21,9 @@ public class ProdutoModel {
     @Column(name = "estoque")
     private Integer estoque;
 
+    public ProdutoModel() {
+    }
+
     public Long getId() {
         return id;
     }
